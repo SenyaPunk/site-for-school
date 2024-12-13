@@ -1,0 +1,151 @@
+@media (max-width: 768px) {
+    .burger-btn {
+        display: block;
+    }
+
+    .menu {
+        display: none;
+    }
+
+
+    .main {
+        background-position: center 0; /* Центрируем фон по вертикали */
+        background-attachment: fixed; /* Параллакс эффект */
+        background-size: cover; /* Фон растягивается под размеры блока */
+        height: 100vh; /* Занимает весь экран по высоте */
+        overflow: hidden; /* Убираем возможные артефакты */
+    }
+
+    .main::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+            linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent 20%, transparent 80%, rgba(0, 0, 0, 0.5)),
+            linear-gradient(to right, rgba(0, 0, 0, 0.5), transparent 20%, transparent 80%, rgba(0, 0, 0, 0.5)),
+            rgba(0, 0, 0, 0.452); 
+        z-index: 1;
+    }
+
+
+    .header {
+        padding: 15px 15px;
+    }
+
+    .logo-img {
+        font-size: 10px;
+        width: 70%;
+    }
+    
+    .logo-img img {
+        width: 50px; /* Регулируемый размер логотипа */
+    }
+
+
+
+
+    .head-block h1 {
+        font-size: 40px;
+        margin-bottom: 10px;
+    }
+
+    .welcome {
+        display: grid;
+        padding: 15px;
+    }
+
+    .welcome-text {
+        text-align: center;
+        margin-bottom: 30px;
+
+    }
+
+    .slideshow-container {
+        width: 100%;
+        height: 250px;
+        margin-bottom: 50px;
+    }
+
+
+
+    .menu-school {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 0 15px;
+    }
+
+    .card-menu {
+        width: 100%;
+        max-width: 300px;
+        margin-top: 20px;
+    }
+
+
+    .main-title-block-news {
+        font-size: 40px;
+        margin: 20px 0;
+    }
+
+    .title-new {
+        font-size: 20px;
+    }
+
+    .card-new {
+        flex-direction: column;
+        padding: 15px;
+        width: 400px;
+        margin: 10px 0;
+    }
+
+    .img-new img {
+        width: 100%;
+        height: 200px;
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .arrow {
+        display: none;
+    }
+
+
+
+
+
+
+    .school-info-title {
+        font-size: 40px;
+    }
+
+    .school-information {
+        transform: scaleX(0.95);
+    }
+
+
+    .additionally {
+        padding: 0 30px;
+    }
+
+    .additionally-title {
+        font-size: 40px;
+        margin-bottom: 20px;
+    }
+
+    .sections-footer {
+        padding: 50px 20px;
+        justify-content: center;
+    }
+
+    .sections-information {
+        padding: 50px 20px;
+    }
+
+
+    .logo-post-information .line {
+        margin: 0 20px;
+    }
+}

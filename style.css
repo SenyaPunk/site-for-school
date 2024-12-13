@@ -1,0 +1,729 @@
+html {
+    scroll-behavior: smooth;
+}
+
+
+@font-face {
+    font-family: "IgraSans";
+    src: url("fonts/IgraSans.otf") format("opentype");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    text-decoration: none;
+    font-family: IgraSans;
+    box-sizing: border-box; /* Обеспечивает, что padding и border не увеличивают ширину элемента */
+}
+
+body {
+    background-color: #e2e2e2;
+    overflow-x: hidden;
+}
+
+
+
+
+
+
+
+
+.burger-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 30px;
+}
+
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Начальное положение вне экрана */
+    width: 80%;
+    height: 100%;
+    background-color: #010036;
+    box-shadow: -4px 0 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto; /* Разрешаем прокрутку, если меню слишком длинное */
+}
+
+.mobile-menu.open {
+    right: 0; /* Выдвигаем меню на экран */
+}
+
+.close-btn {
+    align-self: flex-start; /* Перемещаем кнопку крестика влево */
+    font-size: 50px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.mobile-menu-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mobile-menu .menu-item a {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.mobile-menu .dropdown {
+    display: none;
+    flex-direction: column;
+    margin-top: 10px;
+    gap: 5px;
+    overflow: hidden; /* Избегаем перекрытия */
+    transition: max-height 0.3s ease, padding 0.3s ease; /* Плавное раскрытие */
+    max-height: 0; /* Начальное скрытое состояние */
+    padding: 0;
+    z-index: 10;
+}
+
+.mobile-menu .menu-item.open .dropdown {
+    display: flex; /* Показываем только в открытом состоянии */
+    max-height: 500px; /* Ограничиваем максимальную высоту для плавного раскрытия */
+    padding: 10px 0; /* Добавляем отступы для раскрытых элементов */
+}
+
+.mobile-menu .dropdown a {
+    font-size: 16px;
+    font-weight: normal;
+    padding-left: 15px;
+    color: #555;
+    text-decoration: none;
+}
+
+
+.main {
+
+    background: 
+        url('imgs/sh5.jpg') no-repeat center calc(50% + 10px) / cover; /* Смещение вверх на 50px */
+    background-position: center; /* Центрируем фон */
+    background-attachment: fixed; /* Параллакс-эффект */
+    background-size: cover; /* Изображение растягивается */
+    height: 100vh; /* Высота блока — весь экран */
+    position: relative; /* Для псевдоэлемента */
+    overflow: hidden;
+}
+
+.main::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent 20%, transparent 80%, rgba(0, 0, 0, 0.5)),
+        linear-gradient(to right, rgba(0, 0, 0, 0.5), transparent 20%, transparent 80%, rgba(0, 0, 0, 0.5)),
+        rgba(0, 0, 0, 0.452); 
+    z-index: 1;
+}
+
+
+.header {
+    position: relative;
+    z-index: 2; /* Логотип и меню поверх затемнения */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px; /* Отступы для логотипа и меню */
+}
+
+.logo-img {
+    display: flex;
+    align-items: center;
+    width: 30%;
+}
+
+.logo-img img {
+    width: 80px; /* Регулируемый размер логотипа */
+    margin-right: 10px;
+}
+
+.menu {
+    display: flex;
+    gap: 22px;
+    position: relative; 
+}
+
+.menu a {
+    font-size: 18px;
+    transition: 0.2s; 
+    position: relative; 
+}
+
+.menu a:hover {
+    color: #8a8a8a;
+    transform: translateY(2px);
+}
+
+.menu-item {
+    position: relative; /* Устанавливаем позицию для dropdown */
+}
+
+.dropdown {
+    margin-top: 10px;
+    position: absolute;
+    top: 100%; /* Располагаем под кнопкой */
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: #e2e2e2;
+    padding: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    opacity: 0; /* Скрываем изначально */
+    visibility: hidden; /* Избегаем кликов по скрытому элементу */
+    transform: translateY(-10px); /* Начальное смещение для анимации */
+    transition: all 0.3s ease; /* Плавный переход */
+    min-width: 300px; /* Минимальная ширина выпадающего окна */
+}
+
+
+
+
+.menu-item:hover .dropdown {
+    opacity: 1; /* Показываем при наведении */
+    visibility: visible; /* Делаем видимым */
+    transform: translateY(0); /* Смещение становится 0 */
+}
+
+.dropdown a {
+    padding: 7px 10px;
+    text-decoration: none;
+    color: #333333;
+
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.dropdown a:hover {
+    color: #333333;
+
+    background-color: #f0f0f0;
+}
+
+
+
+
+
+.head-block {
+    margin-top: 100px;
+
+}
+
+.head-block h1 {
+    color: #010036;
+    text-align: center;
+    font-size: 100px;
+    margin-bottom: 100px;
+    font-weight: bold;
+}
+
+.welcome {
+    display: flex;
+    justify-content: center;    /* Центрируем содержимое по горизонтали */
+    align-items: center;        /* Выравниваем по вертикали */
+    gap: 50px;                  /* Пространство между текстом и слайдером */
+    padding: 30px;
+    max-width: 1200px;          /* Ограничение максимальной ширины контейнера */
+    margin: 0 auto;             /* Центрируем контейнер на странице */
+    flex-wrap: wrap;            /* Адаптивное поведение на узких экранах */
+}
+
+.welcome-text {
+    flex: 1;                    /* Текст занимает доступное пространство */
+    max-width: 700px;           /* Ограничиваем ширину текста */
+    text-align: left;           /* Выравнивание текста */
+    color: #1a1a1a;
+}
+
+.slideshow-container {
+    flex: 1;                    /* Слайдер занимает доступное пространство */
+    max-width: 500px;           /* Ограничиваем ширину слайдера */
+    height: 350px;              /* Фиксированная высота слайдера */
+    position: relative;
+}
+
+.slideshow-container img {
+    width: 100%;                /* Занимает всю ширину контейнера */
+    height: 100%;               /* Занимает всю высоту контейнера */
+    object-fit: cover;
+}
+
+
+
+.slideshow-img {
+    border-radius: 15px;
+
+    width: 100%;
+    height: 100%; /* Занимает всю высоту контейнера */
+    object-fit: cover; /* Обрезает изображение, чтобы оно соответствовало контейнеру */
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    z-index: 1;
+}
+
+.slideshow-img.active {
+    opacity: 1;
+}
+
+.menu-school {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.card-menu {
+    margin-top: 100px;
+    padding: 20px;
+    width: 300px;
+    font-size: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: white;
+    background: linear-gradient(rgb(1, 54, 97), rgb(0, 36, 66));
+    margin-bottom: 20px;
+    border-radius: 15px;
+    position: relative; /* Устанавливаем позиционирование */
+    overflow: hidden; /* Обрезка блика, выходящего за пределы */
+}
+
+.card-menu a {
+    margin-bottom: 13px;
+    font-size: 20px;
+    color: white;
+    text-align: left;
+    width: 100%;
+    text-decoration: none;
+    display: block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-menu a:hover {
+    transform: translateX(5px);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.card-menu::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%; /* Начальная позиция блика за пределами карточки */
+    width: 130px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.6); /* Цвет блика */
+    transform: skewX(-45deg); /* Наклон */
+    opacity: 0.5;
+}
+
+.card-menu:hover::after {
+    animation: move-light 0.7s forwards; /* Запуск анимации при наведении */
+}
+
+@keyframes move-light {
+    from {
+        left: -100%; /* Начало анимации */
+    }
+    to {
+        left: 150%; /* Конец анимации */
+    }
+}
+
+
+
+
+
+.block-news {
+    margin-top: 100px;
+    background: linear-gradient(rgb(0, 21, 37), rgb(0, 36, 66));
+    overflow: hidden;
+    position: relative;
+    padding: 3% 0;
+}
+
+.main-title-block-news {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 100px;
+}
+
+.warp-scroll-x {
+    display: flex;
+    transition: transform 1s ease-in-out;
+    gap: 30px;
+    align-items: center;
+}
+
+.card-new {
+    flex: 0 0 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0.6;
+    transform: scale(0.8);
+    transition: transform 1s, opacity 1s;
+    border-radius: 20px;
+    background: #ffffff;
+    padding: 20px 50px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    text-decoration: none;
+    position: relative;
+    
+}
+
+.card-new.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Стиль для изображения */
+.img-new img {
+    width: 350px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-right: 20px;
+}
+
+/* Стиль для текста */
+.news-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.title-new {
+    font-size: 32px;
+    color: #010036;
+    margin-bottom: 15px;
+}
+
+.title-description {
+    color: #010036;
+    text-align: justify;
+}
+
+/* Стрелочка */
+.arrow {
+    position: absolute;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0; /* Скрыта по умолчанию */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    filter: invert();
+}
+
+
+.arrow-icon {
+    width: 50px; 
+    height: 50px; 
+}
+
+
+.card-new:hover {
+    opacity: 1;
+    background: linear-gradient(to right, #ffffff, #474747);  /* Затемнение правого края */
+}
+
+.card-new:hover .arrow {
+    opacity: 1;
+    transform: translateY(-50%) translateX(10px);  /* Стрелочка появляется справа */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.school-information {
+    margin: 100px auto;
+    padding: 20px;
+    max-width: 1200px;
+    background: #ffffff;
+    border-radius: 10px;
+}
+
+.school-info-title {
+    text-align: center;
+    font-size: 100px;
+    color: #010036;
+    margin-bottom: 30px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.school-info-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.school-info-table th, .school-info-table td {
+    border: 1px solid #ccc;
+    padding: 15px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.school-info-table th {
+    background-color: #010036;
+    color: #fff;
+    font-weight: bold;
+}
+
+.school-info-table tr:nth-child(even) {
+    background-color: #ebebeb;
+}
+
+.school-info-table td {
+    font-size: 16px;
+    color: #333;
+}
+
+.hidden-row {
+    display: none; /* Скрываем строки полностью из DOM */
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: height 0.3s ease, opacity 0.3s ease;
+}
+
+.hidden-row.visible {
+    display: table-row; /* Показываем строку, чтобы она вела себя как часть таблицы */
+    height: auto;
+    opacity: 1;
+}
+
+
+
+
+.toggle-button {
+    margin-top: 10px;
+    padding: 5px 15px;
+    font-size: 14px;
+    background-color: #010036;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.toggle-button:hover {
+    background-color: #333;
+}
+
+
+
+
+
+
+/* Общий стиль для всего раздела */
+.additionally {
+    padding: 0 200px;
+    border-radius: 10px; /* Скругленные углы */
+    font-family: 'Arial', sans-serif; /* Универсальный шрифт */
+    margin: 20px auto;
+}
+
+/* Заголовок */
+.additionally-title {
+    font-size: 100px;
+    font-weight: bold;
+    color: #010036;
+    margin-bottom: 50px;
+    padding-bottom: 5px;
+    text-align: center;
+}
+
+/* Ссылки */
+.additionally a {
+    display: block; /* Каждая ссылка на новой строке */
+    text-decoration: none;
+    color: #333; /* Зеленый цвет ссылок */
+    font-size: 1em;
+    margin: 10px 0; /* Отступы между ссылками */
+    transition: color 0.3s, background-color 0.3s;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Наведение на ссылки */
+.additionally a:hover {
+    color: white; /* Белый текст */
+    background-color: #010036; /* Зеленый фон */
+}
+
+/* Ссылки без текста (пустые) */
+.additionally a:empty {
+    display: none; /* Не отображать пустые ссылки */
+}
+
+
+
+
+
+.social-network {
+    background-color: #010036;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-top: 100px;
+}
+
+
+.social-network a img {
+    width: 40px;
+    height: 40px;
+    filter: invert();
+    transition: 0.5s;
+}
+
+.social-network a img:hover {
+    width: 40px;
+    height: 40px;
+    filter: invert() brightness(0.5);
+    transition: 0.5s;
+}
+
+
+
+footer {
+    width: 100%;
+    overflow: hidden;
+}
+
+.sections-footer {
+    background-color: #171819;
+    padding: 50px 100px;
+
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Для адаптации под разные экраны */
+    gap: 30px; /* Расстояние между секциями */
+}
+
+.section-footer {
+    margin-top: 20px;
+    width: 200px; /* Фиксированная ширина для выравнивания */
+}
+
+.section-footer-title {
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.section-footer-list {
+    display: flex;
+    flex-direction: column; /* Ссылки идут строго вертикально */
+}
+
+.section-footer-list a {
+    color: #a0a0a0;
+    font-size: 14px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.section-footer-list a:hover {
+    color: #555555;
+    transform: translateX(5px);
+}
+
+
+
+.sections-information {
+    width: 100%;
+    background-color: #1d1e20;
+    padding: 50px;
+    display: grid; 
+    justify-content: center;  
+    text-align: center;
+}
+
+.section-info-text {
+    margin: 0 auto;
+    width: 80%;
+}
+
+.section-info-text p {
+    margin-bottom: 20px;
+}
+
+
+.logo-post-information {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.logo-post-information img {
+    width: 70px;
+}
+
+.logo-post-information .line {
+    flex: 1; /* Линии занимают всю доступную ширину */
+    height: 2px; /* Толщина линии */
+    background-color: white; /* Цвет линии */
+    margin: 0 50px; /* Отступы между линией и изображением */
+}
+
+.copyright {
+    margin-top: 50px;
+    color: #a0a0a0;;
+}
+
+.copyright p {
+    margin-top: 15px;
+    font-size: 30px;
+    color: #a0a0a0;;
+}
+
+
+
+
+
+
+
+
+
+
+

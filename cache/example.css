@@ -1,0 +1,249 @@
+@font-face {
+    font-family: "IgraSans";
+    src: url("../fonts/IgraSans.otf") format("opentype");
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    text-decoration: none;
+    font-family: IgraSans;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #e2e2e2;
+    overflow-x: hidden;
+}
+
+
+
+
+
+
+
+
+.header-menu {
+    position: relative;
+    z-index: 2; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px; 
+    background-color: #010036;
+}
+
+
+.logo-img {
+    display: flex;
+    align-items: center;
+    width: 30%;
+}
+
+.logo-img img {
+    width: 80px; /* Регулируемый размер логотипа */
+    margin-right: 10px;
+}
+
+.menu {
+    display: flex;
+    gap: 22px;
+    position: relative; 
+}
+
+.menu a {
+    font-size: 18px;
+    transition: 0.2s; 
+    position: relative; 
+}
+
+.menu a:hover {
+    color: #8a8a8a;
+    transform: translateY(2px);
+}
+
+.menu-item {
+    position: relative; /* Устанавливаем позицию для dropdown */
+}
+
+.dropdown {
+    margin-top: 10px;
+    position: absolute;
+    top: 100%; /* Располагаем под кнопкой */
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: #e2e2e2;
+    padding: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    opacity: 0; /* Скрываем изначально */
+    visibility: hidden; /* Избегаем кликов по скрытому элементу */
+    transform: translateY(-10px); /* Начальное смещение для анимации */
+    transition: all 0.3s ease; /* Плавный переход */
+    min-width: 300px; /* Минимальная ширина выпадающего окна */
+}
+
+
+
+
+.menu-item:hover .dropdown {
+    opacity: 1; /* Показываем при наведении */
+    visibility: visible; /* Делаем видимым */
+    transform: translateY(0); /* Смещение становится 0 */
+}
+
+.dropdown a {
+    padding: 7px 10px;
+    text-decoration: none;
+    color: #333333;
+
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.dropdown a:hover {
+    color: #333333;
+
+    background-color: #f0f0f0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.social-network {
+    background-color: #010036;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-top: 100px;
+}
+
+
+.social-network a img {
+    width: 40px;
+    height: 40px;
+    filter: invert();
+    transition: 0.5s;
+}
+
+.social-network a img:hover {
+    width: 40px;
+    height: 40px;
+    filter: invert() brightness(0.5);
+    transition: 0.5s;
+}
+
+
+
+footer {
+    width: 100%;
+    overflow: hidden;
+}
+
+.sections-footer {
+    background-color: #171819;
+    padding: 50px 100px;
+
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; 
+    gap: 30px; 
+}
+
+.section-footer {
+    margin-top: 20px;
+    width: 200px; 
+}
+
+.section-footer-title {
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.section-footer-list {
+    display: flex;
+    flex-direction: column; 
+}
+
+.section-footer-list a {
+    color: #a0a0a0;
+    font-size: 14px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.section-footer-list a:hover {
+    color: #555555;
+    transform: translateX(5px);
+}
+
+
+
+.sections-information {
+    width: 100%;
+    background-color: #1d1e20;
+    padding: 50px;
+    display: grid; 
+    justify-content: center;  
+    text-align: center;
+}
+
+.section-info-text {
+    margin: 0 auto;
+    width: 80%;
+}
+
+.section-info-text p {
+    margin-bottom: 20px;
+}
+
+
+.logo-post-information {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.logo-post-information img {
+    width: 70px;
+}
+
+.logo-post-information .line {
+    flex: 1; 
+    height: 2px; 
+    background-color: white; 
+    margin: 0 50px;
+}
+
+.copyright {
+    margin-top: 50px;
+    color: #a0a0a0;;
+}
+
+.copyright p {
+    margin-top: 15px;
+    font-size: 30px;
+    color: #a0a0a0;;
+}
